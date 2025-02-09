@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 public class IdentitySeedData {
     public static async Task Initialize(ApplicationDbContext context,
-        UserManager<IdentityUser> userManager,
+        UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole> roleManager) {
         context.Database.EnsureCreated();
 
@@ -20,7 +20,7 @@ public class IdentitySeedData {
         }
 
         if (await userManager.FindByNameAsync("a@a.a") == null){
-            var user = new IdentityUser {
+            var user = new ApplicationUser {
                 UserName = "a@a.a",
                 Email = "a@a.a"
             };
@@ -33,7 +33,7 @@ public class IdentitySeedData {
         }
 
         if (await userManager.FindByNameAsync("c@c.c") == null) {
-            var user = new IdentityUser {
+            var user = new ApplicationUser {
                 UserName = "c@c.c",
                 Email = "c@c.c"
             };

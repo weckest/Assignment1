@@ -8,12 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
+
+//builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
 options => {
     options.Stores.MaxLengthForKeys = 128;
 })
@@ -58,7 +60,7 @@ using (var scope = app.Services.CreateScope()) {
     var context = services.GetRequiredService<ApplicationDbContext>();    
     context.Database.Migrate();
 
-    var userMgr = services.GetRequiredService<UserManager<IdentityUser>>();  
+    var userMgr = services.GetRequiredService<UserManager<ApplicationUser>>();  
     var roleMgr = services.GetRequiredService<RoleManager<IdentityRole>>();  
 
     IdentitySeedData.Initialize(context, userMgr, roleMgr).Wait();
