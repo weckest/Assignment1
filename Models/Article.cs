@@ -1,16 +1,33 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Assignment1.Models;
-
-public class Article
+namespace Assignment1.Models
 {
+    public class Article
+    {
+        [Key]
+        public int ArticleId { get; set; }
 
-    public int ArticleId { get; set; }
-    public string Title { get; set; }
-    public string Body { get; set; }
-    public DateTime CreateDate { get; set; }
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
-    public string Email { get; set; }
+        [Required]
+        [StringLength(200)]
+        public string? Title { get; set; }
 
+        [Required]
+        [DataType(DataType.Html)]
+        public string? Body { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime CreateDate { get; set; } = DateTime.UtcNow;
+
+        [DataType(DataType.Date)]
+        public DateTime StartDate { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime EndDate { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string? ContributorUsername { get; set; }
+    }
 }

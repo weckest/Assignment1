@@ -1,7 +1,37 @@
+@model Assignment1.Models.Article
 
-@{
-    ViewData["Title"] = "CreateArticle";
+<h2>Create Article</h2>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
 }
 
-<h1>CreateArticle</h1>
+<form asp-action="CreateArticle" method="post">
+    <label>Title:</label>
+    <input asp-for="Title" class="form-control" required />
+    <span asp-validation-for="Title" class="text-danger"></span>
 
+    <label>Body:</label>
+    <textarea asp-for="Body" class="form-control" required></textarea>
+    <span asp-validation-for="Body" class="text-danger"></span>
+
+    <label>Start Date:</label>
+    <input type="date" asp-for="StartDate" class="form-control" required />
+    <span asp-validation-for="StartDate" class="text-danger"></span>
+
+    <label>End Date:</label>
+    <input type="date" asp-for="EndDate" class="form-control" required />
+    <span asp-validation-for="EndDate" class="text-danger"></span>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<a asp-action="Articles">Back to Articles</a>

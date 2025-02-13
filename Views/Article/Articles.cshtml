@@ -1,7 +1,39 @@
+@model List<Assignment1.Models.Article>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
 
-@{
-    ViewData["Title"] = "Article";
+<h2>Articles</h2>
+
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("contributor"))
+{
+    <a asp-action="CreateArticle" class="btn btn-primary">Create New Article</a>
 }
 
-<h1>Article</h1>
+@foreach (var article in Model)
+{
+    <div class="article">
+        <h3>@article.Title</h3>
+        <p><strong>@article.ContributorUsername</strong>, @article.CreateDate.ToString("MMMM dd, yyyy")</p>
+        <p>@article.Body.Substring(0, Math.Min(100, article.Body.Length))... 
+            <a asp-action="ArticleDetails" asp-route-id="@article.ArticleId">More</a>
+        </p>
 
+        @if (SignInManager.IsSignedIn(User))
+        {
+            var currentUser = await UserManager.GetUserAsync(User);
+            bool isOwner = currentUser?.Email == article.ContributorUsername;
+            bool isAdmin = User.IsInRole("admin");
+
+            if (isOwner || isAdmin)
+            {
+                <a asp-action="EditArticle" asp-route-id="@article.ArticleId" class="btn btn-warning">Edit</a>
+            }
+
+            if (isOwner)
+            {
+                <a asp-action="DeleteArticle" asp-route-id="@article.ArticleId" class="btn btn-danger">Delete</a>
+            }
+        }
+    </div>
+}
