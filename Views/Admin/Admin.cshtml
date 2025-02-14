@@ -1,9 +1,45 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject RoleManager<IdentityRole> RoleManager
+@inject UserManager<ApplicationUser> UserManager
+@{
     ViewData["Title"] = "Admin Panel";
-    
-    
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <p>Use this page only visible to Admin user</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <tr>
+                    Email
+                </tr>
+                <tr>
+                    Role
+                </tr>
+            </th>   
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var user in Model)
+        {
+            <tr>
+                <td>
+                    @user.Email
+                </td>
+                <td>
+                    @{
+                        var roles = await UserManager.GetRolesAsync(user);
+                    }
+                    @string.Join(", ", roles)
+                </td>
+                <td>
+                    <a asp-action="EditUser" asp-route-id="@user.Id" class="btn btn-warning">Edit Role</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

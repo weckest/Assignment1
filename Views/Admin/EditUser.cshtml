@@ -1,0 +1,14 @@
+@{
+    Console.WriteLine(ViewBag);
+}
+<h1>Edit User Role</h1>
+
+<form asp-action="EditUser" method="post">
+
+
+    <label>Role:</label>
+    <select asp-items="ViewBag.Roles"></select>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
