@@ -5,9 +5,9 @@
 
 <form asp-action="EditUser" method="post">
 
-
+    <input type="hidden" placeholder="@ViewBag.Id" />
     <label>Role:</label>
-    <select asp-items="ViewBag.Roles"></select>
+    <select name="role" class="form-control" asp-items="ViewBag.Roles"></select>
 
     <button type="submit" class="btn btn-primary">Update</button>
 </form>
