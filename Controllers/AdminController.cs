@@ -33,10 +33,7 @@ namespace MyApp.Namespace
 
         public ActionResult EditUser(string id)
         {
-            Console.WriteLine("-----------------");
-            Console.WriteLine(_roleManager.Roles.ToList());
-            Console.WriteLine("-----------------");
-            ViewData["Roles"] = new SelectList(_roleManager.Roles.ToList(), "Roles", "Roles");
+            ViewData["Roles"] = new SelectList(_roleManager.Roles.ToList(), "Id", "Name");
             return View();
         }
 
