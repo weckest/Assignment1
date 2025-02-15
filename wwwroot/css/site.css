@@ -29,3 +29,18 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+.article-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+.article-card h3 {
+  color: #333;
+}
+.article-card a {
+  color: #007bff;
+  text-decoration: none;
+}

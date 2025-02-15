@@ -1,8 +1,28 @@
-﻿@{
+﻿@model List<Assignment1.Models.Article>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to the Blog</h1>
+    <p>Discover articles from our contributors.</p>
 </div>
+
+@if (Model == null || !Model.Any())
+{
+    <p class="text-muted text-center">No articles available.</p>
+}
+else
+{
+    @foreach (var article in Model)
+    {
+        <div class="article-card">
+            <h3>@article.Title</h3>
+            <p><strong>@article.ContributorUsername</strong> - @article.CreateDate.ToString("MMMM dd, yyyy")</p>
+            <p>
+                @(article.Body?.Length > 300 ? article.Body.Substring(0, 300) + "..." : article.Body)
+                <a asp-controller="Article" asp-action="ArticleDetails" asp-route-id="@article.ArticleId">More</a>
+            </p>
+        </div>
+    }
+}
