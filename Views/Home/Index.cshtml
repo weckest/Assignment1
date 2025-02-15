@@ -14,15 +14,17 @@
 }
 else
 {
-    @foreach (var article in Model)
-    {
-        <div class="article-card">
-            <h3>@article.Title</h3>
-            <p><strong>@article.ContributorUsername</strong> - @article.CreateDate.ToString("MMMM dd, yyyy")</p>
-            <p>
-                @(article.Body?.Length > 300 ? article.Body.Substring(0, 300) + "..." : article.Body)
-                <a asp-controller="Article" asp-action="ArticleDetails" asp-route-id="@article.ArticleId">More</a>
-            </p>
-        </div>
-    }
+    <div class="article-container"> <!-- ✅ Ensures scrollability -->
+        @foreach (var article in Model)
+        {
+            <div class="article-card">
+                <h3>@article.Title</h3>
+                <p><strong>@article.ContributorUsername</strong> - @article.CreateDate.ToString("MMMM dd, yyyy")</p>
+                <p>
+                    @(article.Body?.Length > 300 ? article.Body.Substring(0, 300) + "..." : article.Body)
+                    <a asp-controller="Article" asp-action="ArticleDetails" asp-route-id="@article.ArticleId">More</a>
+                </p>
+            </div>
+        }
+    </div>
 }

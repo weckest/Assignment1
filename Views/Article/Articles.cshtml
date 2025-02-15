@@ -7,34 +7,37 @@
 
 @if (SignInManager.IsSignedIn(User) && User.IsInRole("contributor"))
 {
-    <a asp-action="CreateArticle" class="btn btn-primary">Create New Article</a>
+    <a asp-action="CreateArticle" class="btn btn-primary mb-3">Create New Article</a>
 }
 
-@foreach (var article in Model)
-{
-    <div class="article-card"> <!-- ✅ Uses the updated style -->
-        <h3>@article.Title</h3>
-        <p><strong>@article.ContributorUsername</strong> - @article.CreateDate.ToString("MMMM dd, yyyy")</p>
-        <p>
-            @(article.Body?.Length > 300 ? article.Body.Substring(0, 300) + "... " : article.Body)
-            <a asp-controller="Article" asp-action="ArticleDetails" asp-route-id="@article.ArticleId">More</a>
-        </p>
+<!-- ✅ Wraps articles in a scrollable container -->
+<div class="article-container">
+    @foreach (var article in Model)
+    {
+        <div class="article-card"> 
+            <h3>@article.Title</h3>
+            <p><strong>@article.ContributorUsername</strong> - @article.CreateDate.ToString("MMMM dd, yyyy")</p>
+            <p>
+                @(article.Body?.Length > 300 ? article.Body.Substring(0, 300) + "... " : article.Body)
+                <a asp-controller="Article" asp-action="ArticleDetails" asp-route-id="@article.ArticleId">More</a>
+            </p>
 
-        @if (SignInManager.IsSignedIn(User))
-        {
-            var currentUser = await UserManager.GetUserAsync(User);
-            bool isOwner = currentUser?.Email == article.ContributorUsername;
-            bool isAdmin = User.IsInRole("admin");
-
-            @if (isOwner || isAdmin)
+            @if (SignInManager.IsSignedIn(User))
             {
-                <a asp-action="EditArticle" asp-route-id="@article.ArticleId" class="btn btn-warning">Edit</a>
-            }
+                var currentUser = await UserManager.GetUserAsync(User);
+                bool isOwner = currentUser?.Email == article.ContributorUsername;
+                bool isAdmin = User.IsInRole("admin");
 
-            @if (isOwner)
-            {
-                <a asp-action="DeleteArticle" asp-route-id="@article.ArticleId" class="btn btn-danger">Delete</a>
+                @if (isOwner || isAdmin)
+                {
+                    <a asp-action="EditArticle" asp-route-id="@article.ArticleId" class="btn btn-warning">Edit</a>
+                }
+
+                @if (isOwner|| isAdmin)
+                {
+                    <a asp-action="DeleteArticle" asp-route-id="@article.ArticleId" class="btn btn-danger">Delete</a>
+                }
             }
-        }
-    </div>
-}
+        </div>
+    }
+</div>

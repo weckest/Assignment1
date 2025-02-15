@@ -1,51 +1,85 @@
-/* 🌍 Global Styles */
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-      font-size: 16px;
-  }
+/* 🌍 Global Page Layout */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures page fills full height */
 }
 
 body {
   background-color: #F5F5DC; /* Khaki Beige Background */
   color: #4B3621; /* Dark Brown Text */
   font-family: 'Arial', sans-serif;
-  margin-bottom: 60px;
+  margin: 0;
+  padding: 0;
+}
+
+/* 🌟 Ensures content area expands properly */
+.main-content {
+  flex-grow: 1;
+  padding-bottom: 20px; /* Prevents footer from overlapping */
+}
+
+/* 🌟 Scrollable Articles Section */
+.article-container {
+  max-height: 65vh; /* Limits article height */
+  overflow-y: auto; /* Enables vertical scrolling */
+  padding-right: 10px; /* Prevents content from touching scrollbar */
+}
+
+/* Hide default scrollbar styling for a cleaner look */
+.article-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.article-container::-webkit-scrollbar-thumb {
+  background-color: #8B6F47; /* Brown scrollbar */
+  border-radius: 5px;
+}
+
+.article-container::-webkit-scrollbar-track {
+  background: #FAF3E0; /* Light cream background */
 }
 
 /* 🌟 Navbar */
 .navbar {
   background-color: #8B6F47 !important; /* Khaki Brown */
   border-bottom: 3px solid #705438; /* Darker Brown Border */
+  margin-bottom: 0;
 }
 
 .navbar-brand, .navbar-nav .nav-link {
-  color: #fff !important; /* White Text */
+  color: #fff !important;
 }
 
 .navbar-nav .nav-link:hover {
-  color: #EAE0C8 !important; /* Light Beige Hover */
+  color: #EAE0C8 !important;
 }
 
-/* 🌟 Highlight Active Page Link */
-.navbar-nav .nav-item .nav-link.active {
-  font-weight: bold;
-  border-bottom: 2px solid white;
+/* 🌟 Footer */
+footer {
+  background-color: #8B6F47;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  margin-top: auto; /* Ensures footer stays at the bottom */
+  position: relative;
+  bottom: 0;
 }
 
-/* 🌟 Buttons (Black Text Instead of Blue) */
+/* 🌟 Buttons */
 .btn-primary {
-  background-color: #A68B5B; /* Muted Brown */
+  background-color: #A68B5B;
   border-color: #8B6F47;
-  color: black !important; /* ✅ Black Text */
+  color: black !important;
 }
 
 .btn-primary:hover {
   background-color: #705438;
-  color: black !important; /* ✅ Keep Black Text on Hover */
+  color: black !important;
 }
 
 .btn-secondary {
@@ -61,7 +95,7 @@ body {
 
 /* 🔥 Optional: Change Danger Button (Red) */
 .btn-danger {
-  background-color: #B5651D; /* Rust Brown */
+  background-color: #B5651D;
   border-color: #8B4513;
   color: black !important;
 }
@@ -84,11 +118,11 @@ body {
 
 /* 🌟 Article Cards */
 .article-card {
-  border: 2px solid #8B6F47; /* Brown Border */
+  border: 2px solid #8B6F47;
   border-radius: 8px;
   padding: 15px;
   margin: 15px 0;
-  background-color: #FAF3E0; /* Light Cream Background */
+  background-color: #FAF3E0;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -112,40 +146,19 @@ body {
   text-decoration: underline;
 }
 
-/* 🌟 Footer */
-footer {
-  background-color: #8B6F47;
-  color: white;
-  padding: 10px;
-  text-align: center;
-}
-
-footer a {
-  color: white;
-}
-
-footer a:hover {
-  color: #F5F5DC;
-}
-
 /* 🌟 Utility Classes */
 .text-center {
   text-align: center;
 }
 
-.container {
-  max-width: 900px;
-  margin: auto;
-}
-
 /* 🌟 Responsive Styles */
 @media (max-width: 768px) {
   .navbar-nav {
-      text-align: center;
+    text-align: center;
   }
 
   .article-card {
-      margin: 10px;
+    margin: 10px;
   }
 }
 
@@ -157,4 +170,3 @@ footer a:hover {
 .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #705438;
 }
-

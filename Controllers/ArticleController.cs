@@ -103,32 +103,34 @@ namespace Assignment1.Controllers
         }
 
         // Contributors can delete only their own articles
-        [Authorize(Roles = "contributor")]
-        public async Task<IActionResult> DeleteArticle(int id)
-        {
-            var article = await _context.Articles.FindAsync(id);
-            if (article == null)
-            {
-                return NotFound();
-            }
+        [Authorize(Roles = "contributor,admin")] // ✅ Allows both roles to delete
+public async Task<IActionResult> DeleteArticle(int id)
+{
+    var article = await _context.Articles.FindAsync(id);
+    if (article == null)
+    {
+        return NotFound();
+    }
 
-            var user = await _userManager.GetUserAsync(User);
-            bool isOwner = user.Email == article.ContributorUsername;
+    var user = await _userManager.GetUserAsync(User);
+    bool isOwner = user.Email == article.ContributorUsername;
+    bool isAdmin = await _userManager.IsInRoleAsync(user, "admin"); // ✅ Check if user is an admin
 
-            if (!isOwner)
-            {
-                return Forbid(); // Only allow the owner to delete
-            }
+    if (!isOwner && !isAdmin)
+    {
+        return Forbid(); // Prevent unauthorized deletions
+    }
 
-            _context.Articles.Remove(article);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Articles));
-        }
+    _context.Articles.Remove(article);
+    await _context.SaveChangesAsync();
+    return RedirectToAction(nameof(Articles));
+}
+
 
         // ✅ MOVE EditArticle METHODS INSIDE THE CONTROLLER CLASS ✅
 
         // GET: Edit article page
-        [Authorize(Roles = "contributor")]
+        [Authorize(Roles = "contributor, admin")]
         public async Task<IActionResult> EditArticle(int id)
         {
             var article = await _context.Articles.FindAsync(id);
@@ -150,36 +152,37 @@ namespace Assignment1.Controllers
         }
 
         // POST: Save the edited article
-        [HttpPost]
-        [Authorize(Roles = "contributor")]
-        public async Task<IActionResult> EditArticle(Article article)
-        {
-            var user = await _userManager.GetUserAsync(User);
-            var existingArticle = await _context.Articles.FindAsync(article.ArticleId);
+     [HttpPost]
+[Authorize(Roles = "contributor,admin")] // ✅ Allows both roles to edit
+public async Task<IActionResult> EditArticle(Article article)
+{
+    var user = await _userManager.GetUserAsync(User);
+    var existingArticle = await _context.Articles.FindAsync(article.ArticleId);
 
-            if (existingArticle == null)
-            {
-                return NotFound();
-            }
+    if (existingArticle == null)
+    {
+        return NotFound();
+    }
 
-            bool isOwner = user.Email == existingArticle.ContributorUsername;
-            bool isAdmin = await _userManager.IsInRoleAsync(user, "admin");
+    bool isOwner = user.Email == existingArticle.ContributorUsername;
+    bool isAdmin = await _userManager.IsInRoleAsync(user, "admin"); // ✅ Check if user is an admin
 
-            if (!isOwner && !isAdmin)
-            {
-                return Forbid(); // Prevent unauthorized edits
-            }
+    if (!isOwner && !isAdmin)
+    {
+        return Forbid(); // Prevent unauthorized edits
+    }
 
-            // Update only editable fields
-            existingArticle.Title = article.Title;
-            existingArticle.Body = article.Body;
-            existingArticle.StartDate = article.StartDate;
-            existingArticle.EndDate = article.EndDate;
+    // Update only editable fields
+    existingArticle.Title = article.Title;
+    existingArticle.Body = article.Body;
+    existingArticle.StartDate = article.StartDate;
+    existingArticle.EndDate = article.EndDate;
 
-            _context.Update(existingArticle);
-            await _context.SaveChangesAsync();
+    _context.Update(existingArticle);
+    await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Articles));
-        }
+    return RedirectToAction(nameof(Articles));
+}
+
     } // ✅ MAKE SURE THIS IS THE FINAL CLOSING BRACE OF THE CLASS ✅
 }
