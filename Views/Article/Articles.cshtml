@@ -12,11 +12,12 @@
 
 @foreach (var article in Model)
 {
-    <div class="article">
+    <div class="article-card"> <!-- ✅ Uses the updated style -->
         <h3>@article.Title</h3>
-        <p><strong>@article.ContributorUsername</strong>, @article.CreateDate.ToString("MMMM dd, yyyy")</p>
-        <p>@article.Body.Substring(0, Math.Min(100, article.Body.Length))... 
-            <a asp-action="ArticleDetails" asp-route-id="@article.ArticleId">More</a>
+        <p><strong>@article.ContributorUsername</strong> - @article.CreateDate.ToString("MMMM dd, yyyy")</p>
+        <p>
+            @(article.Body?.Length > 300 ? article.Body.Substring(0, 300) + "... " : article.Body)
+            <a asp-controller="Article" asp-action="ArticleDetails" asp-route-id="@article.ArticleId">More</a>
         </p>
 
         @if (SignInManager.IsSignedIn(User))
@@ -25,12 +26,12 @@
             bool isOwner = currentUser?.Email == article.ContributorUsername;
             bool isAdmin = User.IsInRole("admin");
 
-            if (isOwner || isAdmin)
+            @if (isOwner || isAdmin)
             {
                 <a asp-action="EditArticle" asp-route-id="@article.ArticleId" class="btn btn-warning">Edit</a>
             }
 
-            if (isOwner)
+            @if (isOwner)
             {
                 <a asp-action="DeleteArticle" asp-route-id="@article.ArticleId" class="btn btn-danger">Delete</a>
             }

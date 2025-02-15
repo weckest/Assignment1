@@ -1,46 +1,160 @@
+/* 🌍 Global Styles */
 html {
   font-size: 14px;
 }
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+      font-size: 16px;
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
+  background-color: #F5F5DC; /* Khaki Beige Background */
+  color: #4B3621; /* Dark Brown Text */
+  font-family: 'Arial', sans-serif;
   margin-bottom: 60px;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* 🌟 Navbar */
+.navbar {
+  background-color: #8B6F47 !important; /* Khaki Brown */
+  border-bottom: 3px solid #705438; /* Darker Brown Border */
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.navbar-brand, .navbar-nav .nav-link {
+  color: #fff !important; /* White Text */
 }
 
-.article-card {
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin-bottom: 15px;
+.navbar-nav .nav-link:hover {
+  color: #EAE0C8 !important; /* Light Beige Hover */
+}
+
+/* 🌟 Highlight Active Page Link */
+.navbar-nav .nav-item .nav-link.active {
+  font-weight: bold;
+  border-bottom: 2px solid white;
+}
+
+/* 🌟 Buttons (Black Text Instead of Blue) */
+.btn-primary {
+  background-color: #A68B5B; /* Muted Brown */
+  border-color: #8B6F47;
+  color: black !important; /* ✅ Black Text */
+}
+
+.btn-primary:hover {
+  background-color: #705438;
+  color: black !important; /* ✅ Keep Black Text on Hover */
+}
+
+.btn-secondary {
+  background-color: #C1A57B;
+  border-color: #A68B5B;
+  color: black !important;
+}
+
+.btn-secondary:hover {
+  background-color: #8B6F47;
+  color: black !important;
+}
+
+/* 🔥 Optional: Change Danger Button (Red) */
+.btn-danger {
+  background-color: #B5651D; /* Rust Brown */
+  border-color: #8B4513;
+  color: black !important;
+}
+
+.btn-danger:hover {
+  background-color: #8B4513;
+  color: black !important;
+}
+
+/* 🌟 Form Fields */
+.form-control {
   border-radius: 5px;
-  background-color: #f9f9f9;
+  border: 1px solid #8B6F47;
 }
+
+.form-control:focus {
+  border-color: #705438;
+  box-shadow: 0 0 5px rgba(139, 111, 71, 0.5);
+}
+
+/* 🌟 Article Cards */
+.article-card {
+  border: 2px solid #8B6F47; /* Brown Border */
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+  background-color: #FAF3E0; /* Light Cream Background */
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
 .article-card h3 {
-  color: #333;
+  color: #705438;
+  margin-bottom: 10px;
 }
+
+.article-card p {
+  font-size: 16px;
+  color: #4B3621;
+}
+
 .article-card a {
-  color: #007bff;
+  color: #A68B5B;
   text-decoration: none;
+  font-weight: bold;
 }
+
+.article-card a:hover {
+  text-decoration: underline;
+}
+
+/* 🌟 Footer */
+footer {
+  background-color: #8B6F47;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+footer a {
+  color: white;
+}
+
+footer a:hover {
+  color: #F5F5DC;
+}
+
+/* 🌟 Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+/* 🌟 Responsive Styles */
+@media (max-width: 768px) {
+  .navbar-nav {
+      text-align: center;
+  }
+
+  .article-card {
+      margin: 10px;
+  }
+}
+
+/* 🔥 Button & Form Focus Effects */
+.btn:focus, 
+.btn:active:focus, 
+.btn-link.nav-link:focus, 
+.form-control:focus, 
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #705438;
+}
+

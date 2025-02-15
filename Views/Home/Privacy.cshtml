@@ -1,6 +1,22 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container mt-4"> <!-- ✅ Container added to align everything properly -->
+    <h2 class="text-center">Privacy Policy</h2>
+
+    <div class="article-card">
+        <p><strong>Effective Date:</strong> February 12, 2025</p>
+
+        <h3>1. Information We Collect</h3>
+        <p>We may collect the following types of information when you interact with our site:</p>
+        <ul>
+            <li><strong>Personal Information:</strong> Name, email address, and account details when you register.</li>
+            <li><strong>Usage Data:</strong> Pages visited, time spent on the site, and browser type for analytics.</li>
+            <li><strong>Cookies:</strong> Small data files stored on your device to improve user experience.</li>
+        </ul>
+
+    </div>
+
+    <a asp-action="Index" class="btn btn-secondary">Back to Home</a>
+</div> <!-- ✅ Closing the container properly -->

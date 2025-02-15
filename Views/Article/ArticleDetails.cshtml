@@ -1,6 +1,13 @@
 @model Assignment1.Models.Article
 
 <h2>@Model.Title</h2>
-<p><strong>@Model.ContributorUsername</strong>, @Model.CreateDate.ToString("MMMM dd, yyyy")</p>
-<p>@Html.Raw(Model.Body)</p>
-<a asp-action="Articles">Back to List</a>
+
+<div class="article-card"> <!-- ✅ Uses updated styling -->
+    <p><strong>@Model.ContributorUsername</strong> - @Model.CreateDate.ToString("MMMM dd, yyyy")</p>
+    
+    <hr>
+    
+    <p>@Model.Body</p>
+</div>
+
+<a asp-action="Articles" class="btn btn-secondary">Back to Articles</a>
