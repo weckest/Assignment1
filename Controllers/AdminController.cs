@@ -36,17 +36,12 @@ namespace MyApp.Namespace
         {
             ViewData["id"] = id;
             ViewData["Roles"] = new SelectList(_roleManager.Roles.ToList(), "Id", "Name");
-            Console.WriteLine(ViewData["Roles"].ToJson() + "\nSomething-----------------");
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> EditUser(string id, string role)
         {
-            Console.WriteLine("-----------------");
-            Console.WriteLine(id);
-            Console.WriteLine(role);
-            Console.WriteLine("-----------------");
             var user = await _userManager.FindByIdAsync(id);
             if (user == null) return NotFound();
             var roles = await _userManager.GetRolesAsync(user);
